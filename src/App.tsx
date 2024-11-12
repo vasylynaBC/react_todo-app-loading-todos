@@ -8,8 +8,6 @@ import { getTodos } from './api/todos';
 import { FooterPart } from './components/Footer';
 import { ErrorMessage } from './components/errorsMessage';
 import { Status } from './components/status';
-// import { UserWarning } from './UserWarning';
-// import { USER_ID } from './api/todos';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);

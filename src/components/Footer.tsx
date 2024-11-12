@@ -1,12 +1,10 @@
-//
 import React from 'react';
+import cn from 'classnames';
 import { Todo } from '../types/Todo';
-// import { deleteTodos, updateTodos } from '../api/todos';
 import { Status } from './status';
 
 interface Props {
   posts: Todo[];
-  // filtered:Todo[];
   filterStatus: (status: Status) => void;
   status: Status;
 }
@@ -16,17 +14,20 @@ export const FooterPart: React.FC<Props> = ({
   filterStatus,
   status,
 }) => {
+  const count =  posts.filter(value => !value.completed).length;
   return (
     <footer className="todoapp__footer" data-cy="Footer">
       <span className="todo-count" data-cy="TodosCounter">
-        {posts.filter(value => !value.completed).length} items left
+        {count} items left
       </span>
       <nav className="filter" data-cy="Filter">
         {Object.values(Status).map(val => (
           <a
             key={val}
             href={`#/${val.toLowerCase()}`}
-            className={`filter__link ${status === val ? 'selected' : ''}`}
+            className={cn('filter__link', {
+              selected: status === val,
+            })}
             data-cy={`FilterLink${val}`}
             onClick={() => filterStatus(val)}
           >
@@ -35,7 +36,6 @@ export const FooterPart: React.FC<Props> = ({
         ))}
       </nav>
 
-      {/* this button should be disabled if there are no completed todos */}
       <button
         type="button"
         className="todoapp__clear-completed"
